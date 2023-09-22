@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+        <!-- https://www.favicon.cc/ -->
+        <link rel="icon" type="image/x-icon" href="img/favicon.ico" />
+
+        <meta property="og:title" content="Tank Mayhem: 2D Tank Shooter Game" />
+        <meta
+            property="og:description"
+            content="Engage in intense battles and strategic warfare in Tank Mayhem, a thrilling 2D tank shooter game. Choose your tank, customize its weapons and armor, and dive into action-packed multiplayer battles. Defend your base, outmaneuver your opponents, and prove your tank supremacy on the battlefield. Are you ready to dominate?"
+        />
+        <meta
+            property="og:image"
+            content="https://dfsdanimaulana.github.io/tank-war/img/game-preview.jpg"
+        />
+        <meta
+            property="og:url"
+            content="https://dfsdanimaulana.github.io/tank-war/index.html"
+        />
+        <meta property="og:site_name" content="Tank Mayhem Game" />
+
+        <meta
+            name="twitter:card"
+            content="https://dfsdanimaulana.github.io/tank-war/img/game-preview.jpg"
+        />
+        <meta
+            name="twitter:title"
+            content="Tank Mayhem: 2D Tank Shooter Game"
+        />
+        <meta
+            name="twitter:description"
+            content="Engage in intense battles and strategic warfare in Tank Mayhem, a thrilling 2D tank shooter game. Choose your tank, customize its weapons and armor, and dive into action-packed multiplayer battles. Defend your base, outmaneuver your opponents, and prove your tank supremacy on the battlefield. Are you ready to dominate?"
+        />
+        <meta
+            name="twitter:image"
+            content="https://dfsdanimaulana.github.io/tank-war/img/game-preview.jpg"
+        />
+
+        <meta name="discord:site" content="Tank Mayhem Game" />
+        <meta
+            name="discord:description"
+            content="Engage in intense battles and strategic warfare in Tank Mayhem, a thrilling 2D tank shooter game. Choose your tank, customize its weapons and armor, and dive into action-packed multiplayer battles. Defend your base, outmaneuver your opponents, and prove your tank supremacy on the battlefield. Are you ready to dominate?"
+        />
+        <meta
+            name="discord:image"
+            content="https://dfsdanimaulana.github.io/tank-war/img/game-preview.jpg"
+        />
+
+        <title>Tank Mayhem: 2D Tank Shooter Game</title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Creepster&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="style.css" />
+        <script src="main.js" type="module" defer></script>
+    </head>
+    <body>
+        <div id="loading-container">
+            <span id="loading-text">Loading</span>
+            <div class="lds-facebook">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+        <canvas id="container"></canvas>
+
+        <!-- Modal start -->
+        <label class="btn" for="modal-1">
+            <img
+                src="img/svg/question-circle-svgrepo-com.svg"
+                alt="question"
+                width="48"
+                height="48"
+                id="question"
+            />
+        </label>
+
+        <input class="modal-state" id="modal-1" type="checkbox" />
+        <div class="modal">
+            <label class="modal__bg" for="modal-1"></label>
+            <div class="modal__inner">
+                <label class="modal__close" for="modal-1"></label>
+                <h1 class="modal__title">Tank War Game Guide</h1>
+                <hr />
+                <h2 class="modal__subtitle">Controls</h2>
+                <p>
+                    Use the arrow keys (<span class="key">↑</span>,
+                    <span class="key">↓</span>, <span class="key">←</span>,
+                    <span class="key">→</span>) or the WASD keys to move your
+                    tank.
+                </p>
+                <p>Press the Enter key or Spacebar to shoot your weapon.</p>
+                <h2 class="modal__subtitle">Bonuses</h2>
+                <p>
+                    In the game, you can collect different bonuses to enhance
+                    your tank's capabilities:
+                </p>
+                <ul>
+                    <li>
+                        <strong>Red Bonus:</strong> This bonus upgrades your
+                        weapon.
+                    </li>
+                    <li>
+                        <strong>Blue Bonus:</strong> Collecting a blue bonus
+                        gives you an extra life.
+                    </li>
+                    <li>
+                        <strong>Yellow Bonus:</strong> This bonus provides a
+                        shield to protect your tank.
+                    </li>
+                    <li>
+                        <strong>White Bonus:</strong> The white bonus grants you
+                        a powerful rocket weapon.
+                    </li>
+                </ul>
+                <p>
+                    Use these bonuses wisely to conquer your enemies and achieve
+                    victory in Tank War!
+                </p>
+            </div>
+        </div>
+
+        <!-- Modal end   -->
+
+        <div class="copyright">
+            Copyright &copy; 2023
+            <a href="https://www.instagram.com/dnm17_/">dnm17_</a>
+        </div>
+        <div style="display: none">
+            <div class="terrains">
+                <img id="terrainImage" src="img/terrains/terrain.png" />
+                <div class="walls">
+                    <img
+                        id="towers_walls_snow"
+                        src="img/terrains/walls/towers_walls_snow_1.png"
+                    />
+                    <img
+                        id="towers_walls_grass_light_1"
+                        src="img/terrains/walls/towers_walls_grass_light_1.png"
+                    />
+                    <img
+                        id="towers_walls_grass_light_2"
+                        src="img/terrains/walls/towers_walls_grass_light_2.png"
+                    />
+                    <img
+                        id="towers_walls_grass_dark_1"
+                        src="img/terrains/walls/towers_walls_grass_dark_1.png"
+                    />
+                    <img
+                        id="towers_walls_grass_dark_2"
+                        src="img/terrains/walls/towers_walls_grass_dark_2.png"
+                    />
+                </div>
+            </div>
+            <img id="boom" src="img/boom.png" />
+            <div class="player">
+                <img
+                    id="playerBodyBlue"
+                    src="img/player/body/body_halftrack.png"
+                />
+                <div class="weapon 1">
+                    <img
+                        id="playerWeaponBlue1_1"
+                        src="img/player/weapon/turret_01_mk1.png"
+                    />
+                    <img
+                        id="playerWeaponBlue1_2"
+                        src="img/player/weapon/turret_01_mk2.png"
+                    />
+                    <img
+                        id="playerWeaponBlue1_3"
+                        src="img/player/weapon/turret_01_mk3.png"
+                    />
+                    <img
+                        id="playerWeaponBlue1_4"
+                        src="img/player/weapon/turret_01_mk4.png"
+                    />
+                </div>
+                <div class="weapon 2">
+                    <img
+                        id="playerWeaponBlue2_1"
+                        src="img/player/weapon/turret_02_mk1.png"
+                    />
+                    <img
+                        id="playerWeaponBlue2_2"
+                        src="img/player/weapon/turret_02_mk2.png"
+                    />
+                    <img
+                        id="playerWeaponBlue2_3"
+                        src="img/player/weapon/turret_02_mk3.png"
+                    />
+                    <img
+                        id="playerWeaponBlue2_4"
+                        src="img/player/weapon/turret_02_mk4.png"
+                    />
+                </div>
+            </div>
+            <div class="enemies">
+                <img id="enemyBodyRed" src="img/enemy/body/body_red.png" />
+                <img
+                    id="enemyBodyPurple"
+                    src="img/enemy/body/body_purple.png"
+                />
+                <img
+                    id="enemyBodyDesert"
+                    src="img/enemy/body/body_desert.png"
+                />
+                <img id="enemyBodyGreen" src="img/enemy/body/body_green.png" />
+                <div class="weapon">
+                    <div class="red">
+                        <div class="weapon 1">
+                            <img
+                                id="enemyWeaponRed1_1"
+                                src="img/enemy/weapon/red/turret_01_mk1.png"
+                            />
+                            <img
+                                id="enemyWeaponRed1_2"
+                                src="img/enemy/weapon/red/turret_01_mk2.png"
+                            />
+                            <img
+                                id="enemyWeaponRed1_3"
+                                src="img/enemy/weapon/red/turret_01_mk3.png"
+                            />
+                            <img
+                                id="enemyWeaponRed1_4"
+                                src="img/enemy/weapon/red/turret_01_mk4.png"
+                            />
+                        </div>
+                        <div class="weapon 2">
+                            <img
+                                id="enemyWeaponRed2_1"
+                                src="img/enemy/weapon/red/turret_02_mk1.png"
+                            />
+                            <img
+                                id="enemyWeaponRed2_2"
+                                src="img/enemy/weapon/red/turret_02_mk2.png"
+                            />
+                            <img
+                                id="enemyWeaponRed2_3"
+                                src="img/enemy/weapon/red/turret_02_mk3.png"
+                            />
+                            <img
+                                id="enemyWeaponRed2_4"
+                                src="img/enemy/weapon/red/turret_02_mk4.png"
+                            />
+                        </div>
+                    </div>
+                    <div class="purple">
+                        <div class="weapon 1">
+                            <img
+                                id="enemyWeaponPurple1_1"
+                                src="img/enemy/weapon/purple/turret_01_mk1.png"
+                            />
+                            <img
+                                id="enemyWeaponPurple1_2"
+                                src="img/enemy/weapon/purple/turret_01_mk2.png"
+                            />
+                            <img
+                                id="enemyWeaponPurple1_3"
+                                src="img/enemy/weapon/purple/turret_01_mk3.png"
+                            />
+                            <img
+                                id="enemyWeaponPurple1_4"
+                                src="img/enemy/weapon/purple/turret_01_mk4.png"
+                            />
+                        </div>
+                        <div class="weapon 2">
+                            <img
+                                id="enemyWeaponPurple2_1"
+                                src="img/enemy/weapon/purple/turret_02_mk1.png"
+                            />
+                            <img
+                                id="enemyWeaponPurple2_2"
+                                src="img/enemy/weapon/purple/turret_02_mk2.png"
+                            />
+                            <img
+                                id="enemyWeaponPurple2_3"
+                                src="img/enemy/weapon/purple/turret_02_mk3.png"
+                            />
+                            <img
+                                id="enemyWeaponPurple2_4"
+                                src="img/enemy/weapon/purple/turret_02_mk4.png"
+                            />
+                        </div>
+                    </div>
+                    <div class="green">
+                        <div class="weapon 1">
+                            <img
+                                id="enemyWeaponGreen1_1"
+                                src="img/enemy/weapon/green/turret_01_mk1.png"
+                            />
+                            <img
+                                id="enemyWeaponGreen1_2"
+                                src="img/enemy/weapon/green/turret_01_mk2.png"
+                            />
+                            <img
+                                id="enemyWeaponGreen1_3"
+                                src="img/enemy/weapon/green/turret_01_mk3.png"
+                            />
+                            <img
+                                id="enemyWeaponGreen1_4"
+                                src="img/enemy/weapon/green/turret_01_mk4.png"
+                            />
+                        </div>
+                        <div class="weapon 2">
+                            <img
+                                id="enemyWeaponGreen2_1"
+                                src="img/enemy/weapon/green/turret_02_mk1.png"
+                            />
+                            <img
+                                id="enemyWeaponGreen2_2"
+                                src="img/enemy/weapon/green/turret_02_mk2.png"
+                            />
+                            <img
+                                id="enemyWeaponGreen2_3"
+                                src="img/enemy/weapon/green/turret_02_mk3.png"
+                            />
+                            <img
+                                id="enemyWeaponGreen2_4"
+                                src="img/enemy/weapon/green/turret_02_mk4.png"
+                            />
+                        </div>
+                    </div>
+                    <div class="desert">
+                        <div class="weapon 1">
+                            <img
+                                id="enemyWeaponDesert1_1"
+                                src="img/enemy/weapon/desert/turret_01_mk1.png"
+                            />
+                            <img
+                                id="enemyWeaponDesert1_2"
+                                src="img/enemy/weapon/desert/turret_01_mk2.png"
+                            />
+                            <img
+                                id="enemyWeaponDesert1_3"
+                                src="img/enemy/weapon/desert/turret_01_mk3.png"
+                            />
+                            <img
+                                id="enemyWeaponDesert1_4"
+                                src="img/enemy/weapon/desert/turret_01_mk4.png"
+                            />
+                        </div>
+                        <div class="weapon 2">
+                            <img
+                                id="enemyWeaponDesert2_1"
+                                src="img/enemy/weapon/desert/turret_02_mk1.png"
+                            />
+                            <img
+                                id="enemyWeaponDesert2_2"
+                                src="img/enemy/weapon/desert/turret_02_mk2.png"
+                            />
+                            <img
+                                id="enemyWeaponDesert2_3"
+                                src="img/enemy/weapon/desert/turret_02_mk3.png"
+                            />
+                            <img
+                                id="enemyWeaponDesert2_4"
+                                src="img/enemy/weapon/desert/turret_02_mk4.png"
+                            />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
