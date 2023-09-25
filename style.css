@@ -8,7 +8,6 @@ body {
 }
 a {
     text-decoration: none;
-    color: white; 
 }
 #loading-container {
     position: absolute;
@@ -33,6 +32,10 @@ a {
     left: 10px;
     color: white;
     font-size: 12px;
+}
+
+.copyright a {
+    color: white;
 }
 
 #loading-text {
@@ -112,6 +115,7 @@ a {
 
 .modal__subtitle {
     text-decoration: underline;
+    margin-top: 10px;
 }
 
 .modal__bg {
@@ -149,7 +153,8 @@ a {
     background: #fff;
     border-radius: 5px;
     padding: 1em 2em;
-    height: 50%;
+    height: fit-content;
+    max-height: 90%;
 }
 
 .modal__close {
@@ -188,7 +193,6 @@ a {
 
     .modal__inner {
         width: 90%;
-        height: 90%;
         box-sizing: border-box;
     }
 }
