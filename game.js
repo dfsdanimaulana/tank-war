@@ -143,6 +143,9 @@ export default class Game {
                 this.addEnemy()
             }
             this.wave += 1
+            if (this.wave > 1) {
+                this.terrains = this.getRandomTerrain()
+            }
             this.maxEnemies += 1
         }
     }
