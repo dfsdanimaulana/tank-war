@@ -136,7 +136,7 @@ export default class Player extends Animation {
                     this.x + this.width / 2,
                     this.y + this.height / 2,
                     enemy.x + enemy.width / 2,
-                    enemy.y + enemy.height / 2,
+                    enemy.y + enemy.height / 2
                 )
             })
             ctx.restore()
@@ -148,7 +148,7 @@ export default class Player extends Animation {
         for (let i = 0; i < this.numberOfProjectiles; i++) {
             this.projectilesPool.push(
                 new NormalPlayerProjectile(this.game),
-                new RocketPlayerProjectile(this.game),
+                new RocketPlayerProjectile(this.game)
             )
         }
     }
@@ -190,7 +190,7 @@ export default class Player extends Animation {
             this.weapon.active = true
             projectile.start(
                 this.x + this.width * 0.5,
-                this.y + this.height * 0.5,
+                this.y + this.height * 0.5
             )
         }
     }
@@ -198,7 +198,7 @@ export default class Player extends Animation {
     handleRocketTimer(deltaTime) {
         if (this.rocketInterval > 0) {
             if (this.rocketTimer > this.rocketInterval) {
-                // reset weapon to normalgetRocket
+                // reset weapon to normal weapon
                 this.weaponLevel = 0
                 this.rocketTimer = 0
                 this.rocketInterval = 0
@@ -239,6 +239,16 @@ export default class Player extends Animation {
             this.speedY = 0
             this.speedX = 0
         }
+
+        // Boost movement
+        if (
+            this.game.input.keys.includes('Control') ||
+            this.game.input.keys.includes('c')
+        ) {
+            this.maxSpeed = 10
+        } else {
+            this.maxSpeed = 5
+        }
     }
 
     drawShield(ctx) {
@@ -256,7 +266,7 @@ export default class Player extends Animation {
             this.y + this.height / 2,
             radius,
             0,
-            2 * Math.PI,
+            2 * Math.PI
         )
         ctx.stroke()
         ctx.restore()
