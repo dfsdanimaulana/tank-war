@@ -103,7 +103,7 @@ export default class Enemy extends Animation {
             this.weapon.active = true
             projectile.start(
                 this.x + this.width * 0.5,
-                this.y + this.height * 0.5,
+                this.y + this.height * 0.5
             )
         }
     }
@@ -235,11 +235,11 @@ export default class Enemy extends Animation {
             this.game.checkCircleCollision(this, this.game.player) &&
             this.drew
         ) {
-            this.lives--
+            this.markedForDeletion = true
             if (this.game.player.shield) {
                 this.game.player.shield = false
             } else {
-                this.game.player.lives--
+                this.game.player.lives -= 1
                 this.game.player.weaponLevel = 0
             }
         }

@@ -126,23 +126,6 @@ export default class Player extends Animation {
         }
     }
 
-    drawLines(ctx) {
-        if (this.game.stroke) {
-            ctx.save()
-            ctx.strokeStyle = 'blue'
-            this.game.enemies.map((enemy) => {
-                drawLine(
-                    ctx,
-                    this.x + this.width / 2,
-                    this.y + this.height / 2,
-                    enemy.x + enemy.width / 2,
-                    enemy.y + enemy.height / 2
-                )
-            })
-            ctx.restore()
-        }
-    }
-
     // create projectile and rocket object poll
     createProjectiles() {
         for (let i = 0; i < this.numberOfProjectiles; i++) {
@@ -270,5 +253,22 @@ export default class Player extends Animation {
         )
         ctx.stroke()
         ctx.restore()
+    }
+
+    drawLines(ctx) {
+        if (this.game.stroke) {
+            ctx.save()
+            ctx.strokeStyle = 'blue'
+            this.game.enemies.map((enemy) => {
+                drawLine(
+                    ctx,
+                    this.x + this.width / 2,
+                    this.y + this.height / 2,
+                    enemy.x + enemy.width / 2,
+                    enemy.y + enemy.height / 2
+                )
+            })
+            ctx.restore()
+        }
     }
 }
