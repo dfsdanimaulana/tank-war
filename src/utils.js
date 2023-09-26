@@ -38,7 +38,7 @@ export function drawCircle(context, x, y, size, radiusModifier = 1) {
         0,
         centerX,
         centerY,
-        radius,
+        radius
     )
 
     gradient.addColorStop(1, 'rgba(170, 255, 0, 0.1)') // Center of the circle will be white
@@ -75,4 +75,44 @@ export function updateLocalStorage(name, newValue) {
     if (newValue > currentValue) {
         localStorage.setItem(name, newValue.toString())
     }
+}
+
+/**
+ * Checks if there is any overlap between the newObject and the objects in the array.
+ *
+ * @param {Array} objects - An array of objects to check for overlap.
+ * @param {Object} newObject - The new object to check for overlap.
+ * @return {boolean} Returns true if there is overlap, false otherwise.
+ */
+export function checkOverlap(objects, newObject) {
+    for (const obj of objects) {
+        if (
+            newObject.x < obj.x + obj.width &&
+            newObject.x + newObject.width > obj.x &&
+            newObject.y < obj.y + obj.height &&
+            newObject.y + newObject.height > obj.y
+        ) {
+            return true // Overlapping
+        }
+    }
+    return false // Not overlapping
+}
+
+/**
+ * Checks if the new object overlaps with an existing object.
+ *
+ * @param {Object} existingObject - The existing object to compare against.
+ * @param {Object} newObject - The new object to check for overlap.
+ * @return {boolean} Returns true if the new object overlaps with the existing object, false otherwise.
+ */
+export function doesOverlapExisting(existingObject, newObject) {
+    if (
+        newObject.x < existingObject.x + existingObject.width &&
+        newObject.x + newObject.width > existingObject.x &&
+        newObject.y < existingObject.y + existingObject.height &&
+        newObject.y + newObject.height > existingObject.y
+    ) {
+        return true // Overlapping with existing object
+    }
+    return false // Not overlapping with existing object
 }

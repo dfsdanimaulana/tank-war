@@ -138,33 +138,15 @@ export default class Enemy extends Animation {
     }
 
     draw(ctx) {
+        this.drew = true
+
         // Draw enemy projectile
         this.projectilesPool.forEach((projectile) => projectile.draw(ctx))
 
-        if (!this.drew) {
-            // Prevent enemies for overlapping with each other when spawn
-            this.game.enemies.forEach((enemy) => {
-                if (this !== enemy) {
-                    if (this.game.checkCollision(this, enemy)) {
-                        this.x = Math.random() * (this.game.width - this.width)
-                        this.y =
-                            Math.random() * (this.game.height - this.height)
-                    }
-                }
-            })
+        super.draw(ctx)
 
-            // Prevent enemy spawn over player
-            if (this.game.checkCollision(this, this.game.player)) {
-                this.x = Math.random() * (this.game.width - this.width)
-                this.y = Math.random() * (this.game.height - this.height)
-            }
-            this.drew = true
-        } else {
-            super.draw(ctx)
-
-            // Draw enemy weapon
-            this.weapon.draw(ctx)
-        }
+        // Draw enemy weapon
+        this.weapon.draw(ctx)
     }
 
     randomMovement(deltaTime) {
@@ -211,7 +193,7 @@ export default class Enemy extends Animation {
     }
 
     handleCollisions() {
-        // Check collision enemy - projectile
+        // Check collision enemy - player projectile
         this.game.player.projectilesPool.forEach((projectile) => {
             if (
                 !projectile.free &&
