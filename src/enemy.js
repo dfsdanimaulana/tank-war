@@ -77,6 +77,9 @@ export default class Enemy extends Animation {
 
         this.directionTimer = 0
         this.changeDirectionInterval = getRandomNumber(1000, 4000)
+
+        this.nextShootTimer = 0
+        this.nextShootInterval = getRandomNumber(1000, 2500)
     }
     // create projectile object poll
     createProjectiles() {
@@ -112,7 +115,7 @@ export default class Enemy extends Animation {
         super.update(deltaTime)
 
         // Shoot enemy projectile
-        this.shoot()
+        this.shootProjectile(deltaTime)
 
         // weapon animation
         this.weapon.update(deltaTime)
@@ -147,6 +150,15 @@ export default class Enemy extends Animation {
 
         // Draw enemy weapon
         this.weapon.draw(ctx)
+    }
+
+    shootProjectile(deltaTime) {
+        if (this.nextShootTimer > this.nextShootInterval) {
+            this.shoot()
+            this.nextShootTimer = 0
+        } else {
+            this.nextShootTimer += deltaTime
+        }
     }
 
     randomMovement(deltaTime) {
