@@ -215,6 +215,7 @@ export default class Enemy extends Animation {
                 projectile.reset()
             }
         })
+
         // Check collision enemy - enemy
         this.game.enemies.forEach((enemy) => {
             if (this.x !== enemy.x && this.y !== enemy.y) {
@@ -225,11 +226,8 @@ export default class Enemy extends Animation {
         })
 
         // Check collision enemy - player
-        if (
-            this.game.checkCircleCollision(this, this.game.player) &&
-            this.drew
-        ) {
-            this.markedForDeletion = true
+        if (this.game.checkCircleCollision(this, this.game.player)) {
+            this.lives = 0
             if (this.game.player.shield) {
                 this.game.player.shield = false
             } else {
