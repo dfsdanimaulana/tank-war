@@ -38,7 +38,7 @@ export function drawCircle(context, x, y, size, radiusModifier = 1) {
         0,
         centerX,
         centerY,
-        radius
+        radius,
     )
 
     gradient.addColorStop(1, 'rgba(170, 255, 0, 0.1)') // Center of the circle will be white

@@ -76,7 +76,7 @@ export default class Enemy extends Animation {
         this.createProjectiles()
 
         this.directionTimer = 0
-        this.changeDirectionInterval = getRandomNumber(1000, 4000)
+        this.changeDirectionInterval = getRandomNumber(1000, 3000)
 
         this.nextShootTimer = 0
         this.nextShootInterval = getRandomNumber(1000, 2500)
@@ -106,7 +106,7 @@ export default class Enemy extends Animation {
             this.weapon.active = true
             projectile.start(
                 this.x + this.width * 0.5,
-                this.y + this.height * 0.5
+                this.y + this.height * 0.5,
             )
         }
     }
@@ -121,7 +121,7 @@ export default class Enemy extends Animation {
         this.weapon.update(deltaTime)
 
         // Random enemy movements
-        this.randomMovement(deltaTime)
+        this.handleMovement(deltaTime)
 
         // X and Y boundaries
         this.setEnemyBoundaries()
@@ -161,11 +161,22 @@ export default class Enemy extends Animation {
         }
     }
 
-    randomMovement(deltaTime) {
+    handleMovement(deltaTime) {
         if (this.directionTimer > this.changeDirectionInterval || !this.drew) {
+            // TODO: listen to player movement and get player current coordinate
+            // TODO: set enemy movement direction depend on player coordinate
+
+            const direction = this.getPlayerPositionFromEnemyPosition(
+                this.game.player,
+            )
+
             const directions = ['up', 'down', 'left', 'right']
 
-            this.direction = directions.getRandomValue()
+            this.direction = direction
+
+            if (Math.random() > 0.7) {
+                this.direction = directions.getRandomValue()
+            }
 
             switch (this.direction) {
                 case 'up':
@@ -185,6 +196,47 @@ export default class Enemy extends Animation {
         } else {
             this.directionTimer += deltaTime
         }
+    }
+
+    getPlayerPositionFromEnemyPosition(player) {
+        let playerPosition = 'not set'
+
+        const px = Math.floor(player.x)
+        const py = Math.floor(player.y)
+
+        const ex = Math.floor(this.x)
+        const ey = Math.floor(this.y)
+
+        const dx = Math.abs(px - ex)
+        const dy = Math.abs(py - ey)
+
+        if (px < ex && py < ey) {
+            if (dx < dy) {
+                playerPosition = 'up'
+            } else {
+                playerPosition = 'left'
+            }
+        } else if (px < ex && py > ey) {
+            if (dx < dy) {
+                playerPosition = 'down'
+            } else {
+                playerPosition = 'left'
+            }
+        } else if (px > ex && py < ey) {
+            if (dx < dy) {
+                playerPosition = 'up'
+            } else {
+                playerPosition = 'right'
+            }
+        } else if (px > ex && py > ey) {
+            if (dx < dy) {
+                playerPosition = 'down'
+            } else {
+                playerPosition = 'right'
+            }
+        }
+
+        return playerPosition
     }
 
     createExplosion() {

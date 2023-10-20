@@ -41,7 +41,7 @@ export default class Game {
         this.terrains = this.getRandomTerrain()
 
         this.enemies = []
-        this.maxEnemies = 3 // max enemies for first wave
+        this.maxEnemies = 1 // max enemies for first wave
 
         this.collisions = []
 
@@ -199,7 +199,7 @@ export default class Game {
         this.enemies = this.enemies.filter((enemy) => !enemy.markedForDeletion)
         this.bonuses = this.bonuses.filter((bonus) => !bonus.markedForDeletion)
         this.collisions = this.collisions.filter(
-            (collision) => !collision.markedForDeletion
+            (collision) => !collision.markedForDeletion,
         )
     }
 
@@ -265,7 +265,7 @@ export default class Game {
 
         const angle = Math.atan2(dy, dx)
         const totalSpeed = Math.sqrt(
-            obj1.speedX * obj1.speedX + obj1.speedY * obj1.speedY
+            obj1.speedX * obj1.speedX + obj1.speedY * obj1.speedY,
         )
 
         const newSpeedX1 = totalSpeed * Math.cos(angle)

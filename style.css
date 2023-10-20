@@ -108,10 +108,9 @@ a {
     bottom: 0;
     left: 0;
     text-align: left;
-    background: rgba(0, 0, 0, .9);
-    transition: opacity .25s ease;
+    background: rgba(0, 0, 0, 0.9);
+    transition: opacity 0.25s ease;
 }
-
 
 .modal__subtitle {
     text-decoration: underline;
@@ -131,17 +130,17 @@ a {
     display: none;
 }
 
-.modal-state:checked+.modal {
+.modal-state:checked + .modal {
     opacity: 1;
     visibility: visible;
 }
 
-.modal-state:checked+.modal .modal__inner {
+.modal-state:checked + .modal .modal__inner {
     top: 0;
 }
 
 .modal__inner {
-    transition: top .25s ease;
+    transition: top 0.25s ease;
     position: absolute;
     top: -20%;
     right: 0;
@@ -190,7 +189,6 @@ a {
 }
 
 @media screen and (max-width: 768px) {
-
     .modal__inner {
         width: 90%;
         box-sizing: border-box;
